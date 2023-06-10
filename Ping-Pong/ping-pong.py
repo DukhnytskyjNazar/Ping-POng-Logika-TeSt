@@ -34,13 +34,29 @@ window.fill(back)
     
 clock=time.Clock()
 ball = GameSprite('tenis_ball.png', 200, 200, 4, 50, 50)
+racket1=Player('racket.png', 30, 200, 4, 50, 150)
+racket2=Player('racket.png', 520, 200, 4, 50, 150)
 
 game_over=False
+
+speed_x=3
+speed_y=3
 
 while not game_over:
     for e in event.get():
         if e.type==QUIT:
             game_over=True
+            
+if game_over!=True:
+    sprite.collide_rect(racket2,ball) ball.rect.x+=speed_x
+    ball.rect.y+=speed_y
+    
+if ball.rect.y>widht-50 or ball.rect.y<0:
+    speed_y*-=1
+    
+if sprite.collide_rect(racket1,ball) or sprite.collide_rect(racket2,ball):
+    speed_y*-=1
+    
 
     ball.reset()
     display.update()
